@@ -1,106 +1,135 @@
 package ru.netology.manager;
 
 import org.junit.jupiter.api.Test;
-import ru.netology.domain.Film;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AfishaManagerTest {
 
-    AfishaManager manager = new AfishaManager();
-
-    Film film1 = new Film(1, "2", "3");
-    Film film2 = new Film(2, "13", "3");
-    Film film3 = new Film(3, "14", "3");
-    Film film4 = new Film(4, "12", "3");
-    Film film5 = new Film(5, "15", "3");
-    Film film6 = new Film(6, "16", "3");
-    Film film7 = new Film(7, "17", "3");
-    Film film8 = new Film(8, "18", "3");
-    Film film9 = new Film(9, "19", "3");
-    Film film10 = new Film(10, "20", "3");
-    Film film11 = new Film(11, "21", "3");
-
     @Test
-    public void shouldAddFilm() {
-        Film[] films = {film1, film2, film3, film4, film5, film6};
+    void getLastFilmsUpperLimit() {
+        AfishaManager manager = new AfishaManager();
+        Film one = new Film(1, "one", "action");
+        Film two = new Film(2, "two", "cartoon");
+        Film three = new Film(3, "three", "comedy");
+        Film four = new Film(4, "four", "action");
+        Film five = new Film(5, "five", "horror");
+        Film six = new Film(6, "six", "comedy");
+        Film seven = new Film(7, "seven", "western");
+        Film eight = new Film(8, "eight", "drama");
+        Film nine = new Film(9, "nine", "action");
+        Film ten = new Film(10, "ten", "thriller");
+        Film eleven = new Film(11, "eleven", "comedy");
 
-        for (Film film : films) {
-            manager.add(film);
-        }
+        manager.add(one);
+        manager.add(two);
+        manager.add(three);
+        manager.add(four);
+        manager.add(five);
+        manager.add(six);
+        manager.add(seven);
+        manager.add(eight);
+        manager.add(nine);
+        manager.add(ten);
+        manager.add(eleven);
 
-        Film[] expected = {film1, film2, film3, film4, film5, film6};
-        Film[] actual = manager.getFilms();
-
+        Film[] actual = manager.getLastFilms();
+        Film[] expected = new Film[]{eleven, ten, nine, eight, seven,six, five, four, three, two};
         assertArrayEquals(expected, actual);
-
     }
 
     @Test
-    public void shouldGetFilm() {
-        Film[] films = {film1, film2, film3, film4, film5, film6};
+    void getLastFilmsIsLimit() {
+        AfishaManager manager = new AfishaManager();
+        Film one = new Film(1, "one", "action");
+        Film two = new Film(2, "two", "cartoon");
+        Film three = new Film(3, "three", "comedy");
+        Film four = new Film(4, "four", "action");
+        Film five = new Film(5, "five", "horror");
+        Film six = new Film(6, "six", "comedy");
+        Film seven = new Film(7, "seven", "western");
+        Film eight = new Film(8, "eight", "drama");
+        Film nine = new Film(9, "nine", "action");
+        Film ten = new Film(10, "ten", "thriller");
 
-        for (Film film : films) {
-            manager.add(film);
-        }
+        manager.add(one);
+        manager.add(two);
+        manager.add(three);
+        manager.add(four);
+        manager.add(five);
+        manager.add(six);
+        manager.add(seven);
+        manager.add(eight);
+        manager.add(nine);
+        manager.add(ten);
 
-        Film[] expected = {film6, film5, film4, film3, film2, film1};
-        Film[] actual = manager.show();
-
+        Film[] actual = manager.getLastFilms();
+        Film[] expected = new Film[]{ten, nine, eight, seven,six, five, four, three, two, one};
         assertArrayEquals(expected, actual);
-
     }
 
     @Test
-    public void shouldGet10() {
-        Film[] films = {film1, film2, film3, film4, film5, film6, film7, film8, film9, film10};
+    void getLastFilmsUnderLimit() {
+        AfishaManager manager = new AfishaManager();
+        Film one = new Film(1, "one", "action");
+        Film two = new Film(2, "two", "cartoon");
+        Film three = new Film(3, "three", "comedy");
+        Film four = new Film(4, "four", "action");
+        Film five = new Film(5, "five", "horror");
 
-        for (Film film : films) {
-            manager.add(film);
-        }
+        manager.add(one);
+        manager.add(two);
+        manager.add(three);
+        manager.add(four);
+        manager.add(five);
 
-        Film[] expected = {film10, film9, film8, film7, film6, film5, film4, film3, film2, film1};
-        Film[] actual = manager.show();
 
+        Film[] actual = manager.getLastFilms();
+        Film[] expected = new Film[]{five, four, three, two, one};
         assertArrayEquals(expected, actual);
-
     }
 
     @Test
-    public void shouldGetMoreThen10() {
-        Film[] films = {film1, film2, film3, film4, film5, film6, film7, film8, film9, film10, film11};
+    void addFilm() {
+        AfishaManager manager = new AfishaManager();
+        Film one = new Film(1, "one", "action");
+        Film two = new Film(2, "two", "cartoon");
 
-        for (Film film : films) {
-            manager.add(film);
-        }
+        manager.add(one);
+        manager.add(two);
 
-        Film[] expected = {film11, film10, film9, film8, film7, film6, film5, film4, film3, film2};
-        Film[] actual = manager.show();
-
+        Film[] expected = new Film[]{two,one};
+        Film[] actual = manager.getLastFilms();
         assertArrayEquals(expected, actual);
-
     }
 
     @Test
-    public void shouldGetDefault() {
-        AfishaManager afishaManager = new AfishaManager();
+    public void getLastFilmChangeCountMovies() {
+        AfishaManager manager = new AfishaManager(4);
 
-        int expected = 10;
-        int actual = afishaManager.getResultLength();
+        Film one = new Film(1, "one", "action");
+        Film two = new Film(2, "two", "cartoon");
+        Film three = new Film(3, "three", "comedy");
+        Film four = new Film(4, "four", "action");
+        Film five = new Film(5, "five", "horror");
 
-        assertEquals(expected, actual);
+        manager.add(one);
+        manager.add(two);
+        manager.add(three);
+        manager.add(four);
+        manager.add(five);
 
+        Film[] actual = manager.getLastFilms();
+        Film[] expected = new Film[]{five, four, three, two};
+        assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldChangeDefault() {
-        AfishaManager afishaManager = new AfishaManager(15);
-
-        int expected = 15;
-        int actual = afishaManager.getResultLength();
-
-        assertEquals(expected, actual);
-
+    public void NoArg() {
+        AfishaManager manager = new AfishaManager();
+        Film one = new Film();
+        Film[] actual = manager.getLastFilms();
+        Film[] expected = new Film[]{};
+        assertArrayEquals(expected, actual);
     }
-
 }
