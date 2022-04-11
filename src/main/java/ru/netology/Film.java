@@ -1,7 +1,7 @@
-package ru.netology.domain;
+package ru.netology;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
 
 @NoArgsConstructor
 @AllArgsConstructor

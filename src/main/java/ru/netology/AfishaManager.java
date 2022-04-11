@@ -1,5 +1,4 @@
-package ru.netology.manager;
-
+package ru.netology;
 
 public class AfishaManager {
     private Film[] films = new Film[0];
